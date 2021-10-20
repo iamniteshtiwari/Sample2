@@ -22,7 +22,8 @@ const SignIn = () => {
       setPassword(event.target.value);
     };
   
-    const signInButton = () => {
+    const signInButton = (event) => {
+      event.preventDefault();
       dispatch(signIn(email, password));
       setEmail("");
       setPassword("");
