@@ -7,8 +7,9 @@ import { ConnectedRouter } from 'connected-react-router';
 import reportWebVitals from './reportWebVitals';
 import * as History from 'history';
 
+
 const history = History.createBrowserHistory();
-export const store = createStore(history);
+ const store = createStore(history);
 
 ReactDOM.render(
     <Provider store={store}>

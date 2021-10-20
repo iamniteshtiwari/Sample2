@@ -1,87 +1,133 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Loading from '../assets/img/loading.gif';
-import postImage from '../assets/img/newspaper-icon-png.jpg';
-import PostForm from '../components/Posts/PostForm';
-import Post from '../components/Posts/Post';
-import { fetchPosts } from '../reducks/posts/operations';
-import { getPosts } from '../reducks/posts/selectors';
 
-const Home = () => {
-    const dispatch = useDispatch();
-    const selector = useSelector(state => state);
-    const posts = getPosts(selector);
-    let [page, setPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+import React from 'react'
+import Header from '../components/common/Header'
 
-    useEffect(() => {
-        dispatch(fetchPosts({ page }));
-        // eslint-disable-next-line
-    }, []);
+import img1 from "../assets/img/img1.png"
+import Rect from "../assets/img/Rectangle_225.png"
+import Rect1 from "../assets/img/Rectangle _226.png"
+import grid1 from "../assets/img/down-grid1.png"
+import grid2 from "../assets/img/down-grid2.png"
+import grid3 from "../assets/img/down-grid3.png"
+import grid4 from "../assets/img/down-grid4.png"
+import grid5 from "../assets/img/down-grid5.png"
 
-    // Infinite Scroll Pagination Flow
-    const observer = useRef();
 
-    // Reference to a very last post element
-    const lastPostElement = useCallback(
-        node => {
-            if (isLoading) return;
-            // Disconnect reference from previous element, so that new last element is hook up correctly
-            if (observer.current) {
-                observer.current.disconnect();
-            }
 
-            // Observe changes in the intersection of target element
-            observer.current = new IntersectionObserver(async entries => {
-                // That means that we are on the page somewhere, In our case last element of the page
-                if (entries[0].isIntersecting && posts.next) {
-                    // Proceed fetch new page
-                    setIsLoading(true);
-                    setPage(++page);
-                    await dispatch(fetchPosts({ page }));
-                    setIsLoading(false);
-                }
-            });
 
-            // Reconnect back with the new last post element
-            if (node) {
-                observer.current.observe(node);
-            }
-        },
-        // eslint-disable-next-line
-        [posts.next]
-    );
 
+
+
+function Home() {
     return (
-        <section className="content">
-            <PostForm />
-            <section className="posts">
-                {posts.results.length > 0 ? (
-                    <ul>
-                        {posts.results.map((post, index) => {
-                            return (
-                                <Post
-                                    ref={index === posts.results.length - 1 ? lastPostElement : null}
-                                    key={post.id}
-                                    post={post}
-                                />
-                            );
-                        })}
-                    </ul>
-                ) : (
-                    <div className="no-post">
-                        <img width="72" src={postImage} alt="icon" />
-                        <p>No posts here yet...</p>
-                    </div>
-                )}
-                {isLoading && (
-                    <div className="loading">
-                        <img src={Loading} className="" alt="" />
-                    </div>
-                )}
-            </section>
-        </section>
-    );
-};
+        <>
+       <Header/>
 
-export default Home;
+
+        <div class="container">
+    <img src={img1} alt="veg"/>
+    <div class="centered">
+      <h3>Hello, Dear Shopper!<br/>
+        Welcome to CHOZA DE ABERROTES
+        <br/>
+
+      Get the best grocery items</h3>
+    </div>
+  </div>
+  <div class="middle">
+    <h1>Featured categorories</h1>
+  </div>
+  <div class="image-mosaic">
+    <div class="card card-tall card-wide">
+      <img src={Rect} class="rect" alt="rect"/>
+      <h4 class="card-tall"><a href="vegetables.html">Vegetables</a></h4>
+      <i class="bi bi-plus-lg"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+      </svg>
+    </div>
+    <div class="card card2">
+      <img src= {Rect1} class="rect" alt="rect"/>
+      <h6 class="card-img"><a href="Fruits.html">Fruits</a></h6>
+      <div class="plus">
+      <i class="bi bi-plus-lg"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+      </svg>
+      </div>
+    </div>
+    <div class="card card3">
+      <img src={Rect1} class="rect" alt="rect"/>
+      <h6 class="card-img2"><a href="spices.html">Spices</a></h6>
+      <div class="plus1">
+        <i class="bi bi-plus-lg"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+        </svg>
+        </div>
+    </div>
+    <div class="card card4">
+      <img src={Rect1} class="rect" alt="rect"/>
+      <h6 class="card-img3"><a href="Grains.html">Grains</a></h6>
+      <div class="plus2">
+        <i class="bi bi-plus-lg"></i>
+        <svg xmlns="http://www.w3.org/2000/svg"  width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+        </svg>
+        </div>
+    </div>
+    <div class="card card5">
+      <img src={Rect1} class="rect" alt="rect"/>
+      <h6 class="card-img4"><a href="Meat.html">Meat</a></h6>
+      <div class="plus3">
+        <i class="bi bi-plus-lg"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+        </svg>
+        </div>
+    </div>
+    </div>
+    
+    <div class="container">
+     
+      <div id="div1">
+        <section class="section-grid">
+        <div class="grid-prod">
+        <div class="prod-grid"><img src={grid1} alt="meat"/>
+        <h3>Chicken meat </h3>    
+             <p>30 $</p>
+        </div>
+        <div class="prod-grid"><img src={grid2} alt="meat"/>
+        <h3>Chicken meat </h3>    
+             <p>20 $</p>
+        </div>
+        <div class="prod-grid"><img src={grid3} alt="meat"/>
+        <h3>Chicken meat </h3>    
+             <p>10 $</p>
+        </div>
+        <div class="prod-grid"><img src={grid4} alt="meat"/>
+        <h3>Chicken meat </h3>    
+             <p>20 $</p>
+        </div>
+        <div class="prod-grid"><img src={grid5} alt="meat"/>
+        <h3>Chicken meat </h3>    
+             <p>30 $</p>
+        </div>
+         </div>
+         </section> 
+      </div>
+      </div>
+
+    
+    
+    
+      <div class="footer1">
+        <hr/>
+        <p>CHOZA <br/>DE
+          ABARROTES</p>
+    </div>
+        </>
+            
+    )
+}
+
+export default Home
