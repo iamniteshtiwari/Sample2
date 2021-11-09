@@ -1,65 +1,78 @@
-
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Footer from "../components/common/Footer";
 import { signIn } from "../reducks/users/operations";
-import Header from '../components/common/Header'
+import Home from "../containers/Home";
+import CrossX from "../assets/img/cross.png";
+import { push } from "connected-react-router";
 
+const Signin = () => {
+  const dispatch = useDispatch();
 
+  const closeButton = () => {
+    dispatch(push("/"));
+  };
 
-const SignIn = () => {
-    const dispatch = useDispatch();
-  
-    const [email, setEmail] = useState(""),
-      [password, setPassword] = useState("");
-  
-    const inputEmail = (event) => {
-      setEmail(event.target.value);
-    };
-  
-    const inputPassword = (event) => {
-      setPassword(event.target.value);
-    };
-  
-    const signInButton = (event) => {
-      event.preventDefault();
-      dispatch(signIn(email, password));
-      setEmail("");
-      setPassword("");
-    };
-    return (
-        <>
-<Header/>
-<section class = "main">
-        <div class = "Sign-In-form">
-<form>
-    
-<h3 class ="sign-In">SIGN IN</h3> 
-<div class = "input2">
-    <span>Email Adress: </span><br/>
-    <input type = "email" onChange={inputEmail} value={email} required placeholder="Enter Email "/> <br/>
-    <br/>
-    
+  const [email, setEmail] = useState(""),
+    [password, setPassword] = useState("");
 
-    <span>Password: </span><br/>
-    <input type = "password" onChange={inputPassword} value={password} required placeholder="Enter Password"/><br/>
-    <br/>
-     <button class = "button" onClick={signInButton}> Sign In </button>
-<div class="reg">
-    <p>New Customer? Register</p>
-    </div>
+  const inputEmail = (event) => {
+    setEmail(event.target.value);
+  };
 
-</div>
-</form>
-</div>
-</section>
+  const inputPassword = (event) => {
+    setPassword(event.target.value);
+  };
 
-<Footer/>
+  const signInButton = () => {
+    dispatch(signIn(email, password));
+    setEmail("");
+    setPassword("");
+  };
+  return (
+    <>
+      <Home />
+      <section class="popup">
+        <div class="popup-inner">
+          <div class="popup-preview">
+            <div class="popup-inner">
+              <span onClick={closeButton}>
+                <img src={CrossX} class="close" />
+              </span>
+              <div class="input">
+                <br /><br /><br />
+                <p class="bold2">SIGN IN</p>
+                <input
+                  type="email"
+                  onChange={inputEmail}
+                  required
+                  placeholder="Email address"
+                  value={email}
+                />{" "}
+                <br />
+                <input
+                  type="password"
+                  onChange={inputPassword}
+                  required
+                  placeholder="Password"
+                  vlaue={password}
+                />
+              </div>
 
-        </>
-    
-    );
+              <button class="button" onClick={signInButton}>
+                SIGN IN
+              </button>
+              <p class="bottom">
+                New Customer?{" "}
+                <a href="/signup">
+                  <u>Register</u>
+                </a>{" "}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 
-export default SignIn;
+export default Signin;
